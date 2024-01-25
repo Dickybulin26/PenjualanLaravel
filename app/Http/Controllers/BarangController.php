@@ -11,16 +11,35 @@ class BarangController extends Controller
     public $kode;
     public $harga;
 
+    /**
+     * 
+     ** fungsi untuk menambah barang
+     */
     public function tambah(){
         
     }
     
+    /**
+     * 
+     ** fungsi untuk menampilkan data
+     */
     public function index(){
         
     }
+
+    /**
+     * 
+     ** fungsi untuk mengupdate data
+     */
     public function update(Request $request){
         
     }
+
+
+    /**
+     * 
+     ** fungsi untuk menyimpan data
+     */
     public function simpan(Request $request){
         
     }

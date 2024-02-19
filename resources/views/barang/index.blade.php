@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <button 
+                <button
                     class="btn btn-success btnTambahBarang"
                     data-bs-target='#modalForm'
                     data-bs-toggle='modal'
@@ -35,13 +35,13 @@
 
         <!-- modal -->
 
-        <div 
+        <div
             class="modal fade"
             id="modalForm"
-            data-bs-backdrop="static" 
+            data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabindex="-1"
-            aria-labelledby="staticBackdropLabel" 
+            aria-labelledby="staticBackdropLabel"
             aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -65,6 +65,9 @@
 
 @section('footer')
 <script type="module">
+
+    const modalInstance = document.querySelector('#modalForm')
+    const modal = bootstrap.Modal.getOrCreateInstance(modalInstance)
 
     let table = $('.DataTable').DataTable({
         processcing:true,
@@ -92,7 +95,7 @@
                 name: 'aksi',
                 render: function(data,type,row){
                     return  '<btn class="btn btn-primary btnEdit" data-bs-modal="modal" data-bs-target="#modalForm" attr-href="{!! url('/barang/edit/" + row.id_barang + "') !!}"><i class="bi bi-pencil"></i> Edit</btn> ' +
-                            '<btn class="btn btn-danger"><i class="bi bi-trash"></i> Hapus</btn>';
+                            '<btn class="btn btn-danger"><i class="bi bi-trash"></i> Hapus</btn>'
                 }
             }
         ]
@@ -131,20 +134,48 @@
                 $('.modal .modal-body').html(response.data)
             })
 
+            //* event simpan saat tombol simpan di klik
+            $('.btnSimpanBarang').on('click',function(simpanEvent){
+                // modal.hide()
+                simpanEvent.preventDefault()
+                simpanEvent.stopImmediatePropagation()
+                let data = {
+                    'nama_barang' : $('#namaBarang').val(),
+                    'kode_barang' : $('#kodeBarang').val(),
+                    'harga_barang' : $('#hargaBarang').val(),
+                    'token' : '{{csrf_token()}}'
+                }
+                if(data.nama_barang !== '' && data.kode_barang !== '' && data.harga_barang !== ''){
+                    //* input data
 
+                    axios.post('{{url("barang/simpan")}}',data).then(response =>{
+                        if(response.data.status == 'success'){
+                            Swal.fire({
+                                'title' : 'Berhasilh!',
+                                'text' : response.data.pesan,
+                                'icon' : 'success'
+                            }).then(() => {
+                                modal.hide()
+                                table.ajax.reload()
+                            })
+                        } else {
+                            Swal.fire({
+                                'title' : 'Data gagal ditambahkan!',
+                                'text' : response.data.pesan,
+                                'icon' : 'error'
+                            })
+                        }
+                    })
 
-            /**
-             * Contoh menggunakan ajax
-             * 
-             * $.ajax({
-                url: link,
-                method: 'GET',
-                success: function(response){
-                    $('#modal .modal-body').html(response.data)
+                } else {
+                    Swal.fire({
+                        'title' : 'gagal!',
+                        'text' : 'Semua Form Harus Diisi',
+                        'icon' : 'error'
+                    })
                 }
             })
-             */
-
+            
             
         })
     })

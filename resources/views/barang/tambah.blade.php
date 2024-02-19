@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="">harga barang</label>
-            <input type="number" name="harga" id="stok" class="form-control">
+            <input type="number" name="harga" id="hargaBarang" class="form-control">
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@ class BarangModel extends Model
     protected $PrimaryKey = 'id_barang';
     protected $fillable = ['nama_barang', 'kode_barang', 'harga_barang','Keterangan'];
 
-    protected $timestamp = false;
+    public $timestamps = false;
 
     public function stok():HasOne
     {

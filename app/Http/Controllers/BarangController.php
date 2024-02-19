@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBarangRequest;
 use Illuminate\Http\Request;
 use App\Models\BarangModel;
 use Yajra\DataTables\Facades\DataTables;
@@ -60,13 +61,51 @@ class BarangController extends Controller
 
 
     
-    public function simpan(Request $request){
+    public function simpan(StoreBarangRequest $request){
     /**
      * 
      ** fungsi untuk menyimpan data
      */
 
+        $data = $request->validated();
+        if($data):
+            if(isset($request->id_barang)):
+                //* proses update
+                $perintah = BarangModel::where('id_barang', $request->id_barang)->update($data);
+                if($perintah):
+                    $pesan = [
+                        'status' => 'success',
+                        'pesan' => 'Data Berhasil Diupdate'
+                    ];
+                else:
+                    $pesan = [
+                        'status' => 'error',
+                        'pesan' => 'Data Gagal Diupdate'
+                    ];
+                endif;
+            else:
+                // *proses tambah data baru
+                $dataBaru = BarangModel::create($data);
+                if($dataBaru):
+                    $pesan = [
+                        'status' => 'success',
+                        'pesan' => 'Data Barang Baru Berhasil Ditambahkan ke Database'
+                    ];
+                else:
+                    $pesan = [
+                        'status' => 'error',
+                        'pesan' => 'Data Gagal Ditambahkan ke Database'
+                    ];
+                endif;
+            endif;
+        else:
+            $pesan = [
+                'status' => 'error',
+                'pesan' => 'Proses Validasi gagal'
+            ];
+        endif;
 
+        return response()->json($pesan);
     }
 
     public function delete(Request $request){

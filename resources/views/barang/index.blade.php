@@ -53,7 +53,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success btnSimpanBarang"><i class="bi bi-save"></i>Simpan</button>
+                        <button class="btn btn-success btnSimpanBarang"><i class="bi bi-save"></i> Simpan</button>
                         <button class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </div>
@@ -91,12 +91,30 @@
             {
                 name: 'aksi',
                 render: function(data,type,row){
-                    return '<btn class="btn btn-primary"><i class="bi bi-pencil"></i>edit</btn> ' +
-                            '<btn class="btn btn-danger"><i class="bi bi-trash"></i>Hapus</btn>';
+                    return  '<btn class="btn btn-primary btnEdit" data-bs-modal="modal" data-bs-target="#modalForm" attr-href="{!! url('/barang/edit/" + row.id_barang + "') !!}"><i class="bi bi-pencil"></i> Edit</btn> ' +
+                            '<btn class="btn btn-danger"><i class="bi bi-trash"></i> Hapus</btn>';
                 }
             }
         ]
     })
+
+
+
+    //* Edit callback
+    $('.DataTable tbody').on('click','.btnEdit',function(event){
+        
+        let modalForm = document.getElementById('modalForm')
+        modalForm.addEventListener('shown.bs.modal',function(event){
+            event.preventDefault()
+            event.stopImmediatePropagation()
+            let link = event.relatedTarget.getAttribute('attr-href')
+            axios.get(link).then(response => {
+                $('#modalForm .modal-body').html(response.data)
+                $('.modal-title').html('EDIT DATA BARANG')
+            })
+        })
+    })
+
 
 
     $('.btnTambahBarang').on('click',function(a){

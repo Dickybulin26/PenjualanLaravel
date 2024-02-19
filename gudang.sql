@@ -20,36 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `gudang`
 --
-
-DELIMITER $$
---
--- Functions
---
-CREATE DEFINER=`` FUNCTION `hargaJual` (`harga_modal` INT UNSIGNED, `keuntungan` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
-DECLARE besarKeuntungan INT UNSIGNED;
-SET besarKeuntungan = harga_modal * (keuntungan/100);
-return (harga_modal * besarKeuntungan);
-END$$
-
-CREATE DEFINER=`` FUNCTION `hargaTotal` (`harga_barang` INT UNSIGNED, `jumlah_beli` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC Begin
-return (jumlah_beli * harga_barang);
-End$$
-
-CREATE DEFINER=`` FUNCTION `hargaTotalKeuntungan` (`hargaModal` INT UNSIGNED, `total` INT UNSIGNED, `keuntungan` DECIMAL(10,2)) RETURNS INT(11) DETERMINISTIC BEGIN
-DECLARE hargaModalTotal INT UNSIGNED;
-DECLARE besarKeuntungan INT UNSIGNED;
-SET hargaModalTotal = hargaModal * total;
-SET besarKeuntungan = hargaModalTotal * (keuntungan/100);
-RETURN (hargaModalTotal * besarKeuntungan);
-END$$
-
-CREATE DEFINER=`` FUNCTION `insert_barang` (`nama_barang` VARCHAR(100), `kode_barang` VARCHAR(200), `harga_barang` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
-INSERT INTO barang (nama_barang, kode_barang, harga_barang) VALUES (nama_barang, kode_barang, harga_barang);
-RETURN 1;
-END$$
-
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -69,7 +39,7 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nama_barang`, `kode_barang`, `harga_barang`, `keterangan`) VALUES
-(1, 'hp victus gaming 15', 'dfkj222000123', 15000000, 'Ini laptop gaming HP'),
+(1, 'hp victus gaming 15', 'dfkj222000123', 15000000, 'Ini laptop gfaming HP'),
 (2, 'hp xiomi redmi 6 pro', 'H3S0Y4M', 2500000, 'hp badut'),
 (5, 'bakso tanpa tepung', 'BIBD001', 24000, 'baksonya mas roy enak tenan rek');
 

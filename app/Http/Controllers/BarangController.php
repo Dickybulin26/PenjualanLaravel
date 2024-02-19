@@ -13,6 +13,7 @@ class BarangController extends Controller
     protected $kode_barang;
     protected $harga_barang;
     protected $barangModel;
+    public $timestamps = false;
 
     public function __construct(){
         $this->barangModel = new BarangModel();
@@ -50,7 +51,11 @@ class BarangController extends Controller
      ** yang akan dikirim  ke method simpan
      */
 
-        
+    $data = [
+        'BarangDetil' => BarangModel::where('id_barang', $request->id_barang)->first()
+    ];
+
+    return view('barang.edit', $data);
     }
 
 

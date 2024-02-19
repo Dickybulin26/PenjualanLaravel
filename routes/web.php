@@ -23,4 +23,5 @@ Route::prefix('/barang')->group(function () {
     Route::get('/',[BarangController::class, 'index'])->name('barang.index');
     Route::get('/data',[BarangController::class,'dataBarang'])->name('barang.data');
     Route::get('/tambah',[BarangController::class,'tambah'])->name('barang.tambah');
+    Route::get('/edit/{id_barang}',[BarangController::class,'update'])->name('barang.edit');
 });

@@ -26,7 +26,20 @@ class StoreBarangRequest extends FormRequest
 
             'nama_barang' => 'required',
             'kode_barang' => 'required',
-            'harga_barang' => 'required',
+            'harga_barang' => 'required|numeric',
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama_barang.required' => ':attribute nama barang harus diisi',
+            'kode_barang.required' => ':attribute kode barang harus diisi',
+            'harga_barang.required' => ':attribute harga barang harus diisi',
+        ];
+    }
+
+    public function filter(){
+        return ['nama_barang' => 'trim|capitalize|escape'];
     }
 }

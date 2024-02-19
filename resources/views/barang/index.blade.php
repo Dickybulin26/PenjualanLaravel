@@ -94,8 +94,7 @@
             {
                 name: 'aksi',
                 render: function(data,type,row){
-                    return  '<btn class="btn btn-primary btnEdit" data-bs-modal="modal" data-bs-target="#modalForm" attr-href="{!! url('/barang/edit/" + row.id_barang + "') !!}"><i class="bi bi-pencil"></i> Edit</btn> ' +
-                            '<btn class="btn btn-danger"><i class="bi bi-trash"></i> Hapus</btn>'
+                    return "<btn class='btn btn-primary btnEdit' data-bs-toggle='modal' data-bs-target='#modalForm' attr-href='{!!url('/barang/edit/"+row.id_barang+"')!!}'><i class='bi bi-pencil'></i> Edit </btn> <btn class='btn btn-danger'><i class='bi bi-trash'></i> Hapus </btn>";
                 }
             }
         ]
@@ -166,17 +165,10 @@
                             })
                         }
                     })
-
                 } else {
-                    Swal.fire({
-                        'title' : 'gagal!',
-                        'text' : 'Semua Form Harus Diisi',
-                        'icon' : 'error'
-                    })
+                    alert('data tidak boleh kosong');
                 }
             })
-            
-            
         })
     })
 </script>

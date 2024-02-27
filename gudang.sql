@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2024 at 09:55 AM
+-- Generation Time: Feb 27, 2024 at 10:13 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -25,17 +25,17 @@ DELIMITER $$
 --
 -- Functions
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `hargaJual` (`harga_modal` INT UNSIGNED, `keuntungan` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
+CREATE DEFINER=`` FUNCTION `hargaJual` (`harga_modal` INT UNSIGNED, `keuntungan` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
 DECLARE besarKeuntungan INT UNSIGNED;
 SET besarKeuntungan = harga_modal * (keuntungan/100);
 return (harga_modal * besarKeuntungan);
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `hargaTotal` (`harga_barang` INT UNSIGNED, `jumlah_beli` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC Begin
+CREATE DEFINER=`` FUNCTION `hargaTotal` (`harga_barang` INT UNSIGNED, `jumlah_beli` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC Begin
 return (jumlah_beli * harga_barang);
 End$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `hargaTotalKeuntungan` (`hargaModal` INT UNSIGNED, `total` INT UNSIGNED, `keuntungan` DECIMAL(10,2)) RETURNS INT(11) DETERMINISTIC BEGIN
+CREATE DEFINER=`` FUNCTION `hargaTotalKeuntungan` (`hargaModal` INT UNSIGNED, `total` INT UNSIGNED, `keuntungan` DECIMAL(10,2)) RETURNS INT(11) DETERMINISTIC BEGIN
 DECLARE hargaModalTotal INT UNSIGNED;
 DECLARE besarKeuntungan INT UNSIGNED;
 SET hargaModalTotal = hargaModal * total;
@@ -43,7 +43,7 @@ SET besarKeuntungan = hargaModalTotal * (keuntungan/100);
 RETURN (hargaModalTotal * besarKeuntungan);
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `insert_barang` (`nama_barang` VARCHAR(100), `kode_barang` VARCHAR(200), `harga_barang` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
+CREATE DEFINER=`` FUNCTION `insert_barang` (`nama_barang` VARCHAR(100), `kode_barang` VARCHAR(200), `harga_barang` INT UNSIGNED) RETURNS INT(11) DETERMINISTIC BEGIN
 INSERT INTO barang (nama_barang, kode_barang, harga_barang) VALUES (nama_barang, kode_barang, harga_barang);
 RETURN 1;
 END$$
@@ -72,9 +72,9 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `kode_barang`, `harga_barang`,
 (1, 'hp victus gaming 15', 'dfkj222000123', 15000000, 'Ini laptop gaming HP'),
 (2, 'hp xiomi redmi 6 pro', 'H3S0Y4M', 2500000, 'hp badut'),
 (5, 'bakso tanpa tepung', 'BIBD001', 24000, 'baksonya mas roy enak tenan rek'),
-(6, 'mi ayam', 'bh231120', 15000000, NULL),
-(7, 'KOMODO KEBALIK', '42345gfhfgh', 34230000, NULL),
-(8, 'LAPTOP FARIZ', 'L322WQEVO', 3000, NULL);
+(7, 'KOMODO KEBALIK', '2418JHJKKLL', 30600, NULL),
+(8, 'KIPAS ANGIN KOSMOS', '2312KJK', 2500000, NULL),
+(10, 'ayam beneran', 'jkhjh4545', 25000, NULL);
 
 --
 -- Triggers `barang`
@@ -113,7 +113,8 @@ CREATE TABLE `beli` (
 
 INSERT INTO `beli` (`id_beli`, `id_barang`, `jumlah_beli`, `tanggal`, `harga_barang`, `total`) VALUES
 (1, 1, 10, '0000-00-00 00:00:00', 15000000, 150000000),
-(4, 1, 2, '2024-02-05 04:07:27', 15000000, 30000000);
+(4, 1, 2, '2024-02-05 04:07:27', 15000000, 30000000),
+(5, 5, 100, '2024-02-26 17:00:00', 24000, 2400000);
 
 --
 -- Triggers `beli`
@@ -198,9 +199,12 @@ INSERT INTO `logs` (`id_logs`, `pesan`, `tanggal`) VALUES
 (8, 'Aktifitas Pembelian untuk barang hp victus gaming 15 dengan jumlah pembelian sebanyak 2 dengan harga satuan sebesar 15000000 dan total biaya sebesar 30000000 sudah dilakukan pada tanggal   2024-02-05 11:07:27', '2024-02-05'),
 (9, 'Aktifitas penjualan untuk baranghp xiomi redmi 6 pro dengan jumlah penjualan sebanyak 5 dengan harga satuan sebesar 2500000 dan total biaya sebesar 16250000 sudah dilakukan pada tanggal 2024-02-05 11:16:22', '2024-02-05'),
 (11, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namabakso tanpa tepungdengan id_barang = 5dengan harga satuan sebesar 24000', '2024-02-05'),
-(12, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namami ayamdengan id_barang = 6dengan harga satuan sebesar 15000000', '2024-02-06'),
-(13, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaKOMODO KEBALIKdengan id_barang = 7dengan harga satuan sebesar 34230000', '2024-02-19'),
-(14, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaLAPTOP FARIZdengan id_barang = 8dengan harga satuan sebesar 3000', '2024-02-19');
+(12, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaayam kebalikdengan id_barang = 6dengan harga satuan sebesar 25000', '2024-02-19'),
+(13, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaKOMODO KEBALIKdengan id_barang = 7dengan harga satuan sebesar 30600', '2024-02-20'),
+(14, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaKIPAS ANGIN KOSMOSdengan id_barang = 8dengan harga satuan sebesar 2500000', '2024-02-20'),
+(15, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaak 47 seconddengan id_barang = 9dengan harga satuan sebesar 990000', '2024-02-27'),
+(16, 'Sebuah item baru sudah Ditambahkan pada table barang dengan namaayam kebalikdengan id_barang = 10dengan harga satuan sebesar 25000', '2024-02-27'),
+(17, 'Aktifitas Pembelian untuk barang bakso tanpa tepung dengan jumlah pembelian sebanyak 100 dengan harga satuan sebesar 24000 dan total biaya sebesar 2400000 sudah dilakukan pada tanggal   2024-02-27 15:19:25', '2024-02-27');
 
 -- --------------------------------------------------------
 
@@ -221,10 +225,10 @@ CREATE TABLE `stok` (
 INSERT INTO `stok` (`id_stok`, `jumlah_barang`, `id_barang`) VALUES
 (3, 13, 1),
 (4, -10, 2),
-(7, 0, 5),
-(8, 0, 6),
+(7, 100, 5),
 (9, 0, 7),
-(10, 0, 8);
+(10, 0, 8),
+(12, 0, 10);
 
 --
 -- Indexes for dumped tables
@@ -271,13 +275,13 @@ ALTER TABLE `stok`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_barang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `beli`
 --
 ALTER TABLE `beli`
-  MODIFY `id_beli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_beli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jual`
@@ -289,13 +293,13 @@ ALTER TABLE `jual`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_logs` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `id_stok` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_stok` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

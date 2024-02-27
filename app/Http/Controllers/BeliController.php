@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\BeliModel;
+use Yajra\DataTables\Facades\DataTables;
 
 class BeliController extends Controller
 {
@@ -17,6 +19,15 @@ class BeliController extends Controller
      * 
      ** fungsi untuk menambah beli
     */
+    public function index(Request $request){
+        if($request->ajax()){
+            $data = BeliModel::with('barang')->get();
+            return DataTables::of($data)->toJson();
+        }
+
+        return view('beli.index');
+    }
+
     public function tambahBeli(){
         
     }

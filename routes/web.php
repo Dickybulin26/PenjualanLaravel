@@ -25,4 +25,5 @@ Route::prefix('/barang')->group(function () {
     Route::get('/tambah',[BarangController::class,'tambah'])->name('barang.tambah');
     Route::get('/edit/{id_barang}',[BarangController::class,'update'])->name('barang.edit');
     Route::post('/simpan',[BarangController::class,'simpan'])->name('barang.simpan');
+    Route::post('/hapus',[BarangController::class,'delete'])->name('barang.hapus');
 });

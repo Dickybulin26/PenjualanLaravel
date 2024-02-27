@@ -114,7 +114,20 @@ class BarangController extends Controller
          ** form AJAX yang sudah dikonfirmasi.
          */
 
+        $aksiHapus = BarangModel::where('id_barang', $request->id_barang)->delete();
+        if ($aksiHapus) {
+            $pesan = [
+                'status' => 'success',
+                'pesan' => 'Data Berhasil Dihapus'
+            ];
+        } else {
+            $pesan = [
+                'status' => 'error',
+                'pesan' => 'Data Gagal Dihapus'
+            ];
+        }
 
+        return response()->json($pesan);
     }
 
     public function dataBarang(Request $request){

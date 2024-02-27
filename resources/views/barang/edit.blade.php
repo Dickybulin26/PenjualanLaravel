@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="form-group">
             <label for="">Kode Barang</label>
-            <input type="hidden" name="id_barang" value="{{ $BarangDetil->id_barang }}"/>
+            <input type="hidden" name="id_barang" id="idBarang" value="{{ $BarangDetil->id_barang }}"/>
             <input  class="form-control"
                     type="text"
                     name="kode_barang"

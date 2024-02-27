@@ -94,13 +94,48 @@
             {
                 name: 'aksi',
                 render: function(data,type,row){
-                    return "<btn class='btn btn-primary btnEdit' data-bs-toggle='modal' data-bs-target='#modalForm' attr-href='{!!url('/barang/edit/"+row.id_barang+"')!!}'><i class='bi bi-pencil'></i> Edit </btn> <btn class='btn btn-danger'><i class='bi bi-trash'></i> Hapus </btn>";
+                    return "<btn class='btn btn-primary btnEdit' data-bs-toggle='modal' data-bs-target='#modalForm' attr-href='{!!url('/barang/edit/"+row.id_barang+"')!!}'><i class='bi bi-pencil'></i> Edit </btn> <btn class='btn btn-danger btnHapusBarang' attr-id='"+row.id_barang+"'><i class='bi bi-trash'></i> Hapus </btn>";
                 }
             }
         ]
     })
 
 
+    //* Hapus callback
+    $('.DataTable tbody').on('click','.btnHapusBarang',function(hapusEvent){
+        let idBarang = $(this).closest('.btnHapusBarang').attr('attr-id')
+        // alert(idBarang)
+        Swal.fire({
+            title: 'You want to delete this data,Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let hapusData = {
+                    'id_barang' : idBarang,
+                    'token' : '{{csrf_token()}}'
+                }
+
+                axios.post('{{url("barang/hapus")}}', hapusData).then(response =>{
+                    if(response.data.status == 'success'){
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.data.pesan,
+                            text: 'Data Anda Berhasil di Hapus'
+                        }).then(()=>{
+                            table.ajax.reload()
+                        })
+                    }else{
+
+                    }
+                })
+            }
+        })
+    })
 
     //* Edit callback
     $('.DataTable tbody').on('click','.btnEdit',function(event){
@@ -113,6 +148,38 @@
             axios.get(link).then(response => {
                 $('#modalForm .modal-body').html(response.data)
                 $('.modal-title').html('EDIT DATA BARANG')
+            })
+
+            //* event simpan saat tombol simpan di klik
+            $('.btnSimpanBarang').on('click',function(editSimpanEvent){
+                editSimpanEvent.stopImmediatePropagation()
+                // alert("Simpan");
+                let dataEdit = {
+                    'id_barang': $('#idBarang').val(),
+                    'nama_barang' : $('#namaBarang').val(),
+                    'kode_barang' : $('#kodeBarang').val(),
+                    'harga_barang' : $('#hargaBarang').val(),
+                    'token' : '{{csrf_token()}}'
+                }
+
+                axios.post('{{url("barang/simpan")}}',dataEdit).then(response =>{
+                    if(response.data.status == 'success'){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.data.pesan
+                        }).then(() => {
+                            table.ajax.reload()
+                            modal.hide()
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response.data.pesan
+                        })
+                    }
+                })
             })
         })
     })

@@ -34,5 +34,5 @@ Route::prefix('/beli')->group(function () {
     Route::get('/',[BeliController::class, 'index'])->name('beli.index');
     Route::get('/data',[BeliController::class, 'index'])->name('beli.data');
     Route::get('/tambah',[BeliController::class, 'tambahBeli'])->name('beli.tambah');
-    // Route::post('/simpan',[BeliController::class, 'simpanBeli'])->name('beli.simpan');
+    //? Route::post('/simpan',[BeliController::class, 'simpanBeli'])->name('beli.simpan');
 });

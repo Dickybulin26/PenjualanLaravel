@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_barang',true,false)->nullable(false);
             $table->string('nama_barang',200)->nullable(false);
             $table->string('kode_barang',100)->nullable(false);
-            $table->decimal('harga',10,2,false)->nullable(false);
+            $table->decimal('harga_barang',10,2,false)->nullable(false);
         });
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\AkunModel;
+
 return [
 
     /*
@@ -62,7 +64,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            // 'model' => App\Models\User::class,
+            'model' => AkunModel::class
         ],
 
         // 'users' => [

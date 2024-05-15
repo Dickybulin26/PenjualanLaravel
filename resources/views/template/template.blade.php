@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
     <title>@yield('title')</title>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
@@ -37,6 +39,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Logs</a>
                         </li>
+                        @if(Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{!! route('logout') !!}">Logout</a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -50,4 +57,5 @@
     </div>
 </body>
 <footer>@yield('footer')</footer>
+
 </html>

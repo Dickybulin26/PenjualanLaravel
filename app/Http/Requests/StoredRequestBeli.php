@@ -23,6 +23,10 @@ class StoredRequestBeli extends FormRequest
     {
         return [
             //
+            'id_barang' => 'required',
+            'tanggal_beli' => 'required',
+            'jumlah_beli' => 'required',
+            'harga' => 'required',
         ];
     }
 }

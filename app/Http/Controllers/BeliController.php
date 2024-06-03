@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoredRequestBeli;
 use Illuminate\Http\Request;
 use App\Models\BeliModel;
 use Yajra\DataTables\Facades\DataTables;
@@ -29,13 +30,30 @@ class BeliController extends Controller
     }
 
     public function tambahBeli(){
-        
+        return view('beli.tambah');
     }
     /**
      * 
      ** fungsi untuk menyimpan data beli
      */
-    public function simpanBeli(Request $request){
+    public function simpanBeli(StoredRequestBeli $request){
         
+        $data = $request->validated(); 
+        $data['total'] = $request->harga * $request->jumlah_beli;
+        $insert = BeliModel::create($data);
+        
+        if($insert):
+            $pesan = [
+                'status' => 'success',
+                'pesan' => 'pembelian berhasil dilakukan',
+            ];
+        else:
+            $pesan = [
+                'status' => 'error',
+                'pesan' => 'pembelian gagal dilakukan',
+            ];
+        endif;
+
+        return response()->json($pesan);
     }
 }

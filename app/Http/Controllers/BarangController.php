@@ -142,4 +142,12 @@ class BarangController extends Controller
         endif;
     }
 
+    public function listBarang(Request $request){
+        if($request->filled('term')):
+            $data = BarangModel::select(['nama_barang','id_barang'])
+            ->where('nama_barang','LIKE','%' . $request->get('q') . '%')->get();
+
+            return response()->json($data);
+        endif;
+    }
 }

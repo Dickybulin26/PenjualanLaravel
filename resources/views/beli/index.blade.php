@@ -204,8 +204,8 @@
     })
 
 
-
-    $('.btnTambahBarang').on('click',function(a){
+    //* Modal popup beli barang
+    $('.btnBeliBarang').on('click',function(a){
         a.preventDefault()
         const modalForm = document.getElementById('modalForm')
         modalForm.addEventListener('shown.bs.modal',function(event){
@@ -213,10 +213,31 @@
             event.stopImmediatePropagation()
             const link = event.relatedTarget.getAttribute('attr-href')
             const modalData = document.querySelector('#modal .modal-body')
-
-            $('.modal-header .modal-title').html('Tambah Data Barang Baru')
+            // alert(link)
+            $('.modal-header .modal-title').html('Beli Barang')
             axios.get(link).then(response =>{
                 $('.modal .modal-body').html(response.data)
+                $('.autoDropDownBarang').select2({
+                    placeholder     : 'Pilih barang yang ingin dibeli',
+                    theme           : 'bootstrap-5',
+                    cache           : true,
+                    dropdownParent  : $('.modal .modal-body'),
+                    ajax            : {
+                        url : "{!! route('barang.list') !!}",
+                        dataType : 'json',
+                        processResaults : function(data){
+                            $.each(data,function(i,d){
+                                // i = iterasi ke n
+                                // d = data dari iterasi i
+                                data[i]['text'] = d.nama_barang
+                                data[i]['id'] = d.id_barang
+                            })
+                            return {
+                                results : data
+                            }
+                        }
+                    }
+                })
             })
 
             //* event simpan saat tombol simpan di klik
@@ -225,18 +246,24 @@
                 simpanEvent.preventDefault()
                 simpanEvent.stopImmediatePropagation()
                 let data = {
-                    'nama_barang' : $('#namaBarang').val(),
-                    'kode_barang' : $('#kodeBarang').val(),
-                    'harga_barang' : $('#hargaBarang').val(),
+                    'id_barang' : $('#idBarang').val(),
+                    'tanggal_beli' : $('#tanggalBeli').val(),
+                    'jumlah_beli' : $('#jumlahBeli').val(),
+                    'harga' : $('#hargaBeliSatuan').val(),
                     'token' : '{{csrf_token()}}'
                 }
-                if(data.nama_barang !== '' && data.kode_barang !== '' && data.harga_barang !== ''){
+                if(
+                    data.id_barang !== '' &&
+                    data.tanggal_beli  !== '' &&
+                    data.jumlah_beli !== '' && 
+                    data.harga !== '')
+                    {
                     //* input data
 
-                    axios.post('{{url("barang/simpan")}}',data).then(response =>{
+                    axios.post('{{url("beli/simpan")}}',data).then(response =>{
                         if(response.data.status == 'success'){
                             Swal.fire({
-                                'title' : 'Berhasilh!',
+                                'title' : 'Berhasil!',
                                 'text' : response.data.pesan,
                                 'icon' : 'success'
                             }).then(() => {

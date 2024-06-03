@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('jumlah_beli',false,false)->nullable(false);
             $table->decimal('harga',10,2,false)->nullable(false);
             $table->decimal('total',10,2,false)->nullable(false);
+            $table->timestamps();
 
             //* foreign key barang
             $table->foreign('id_barang','ConstraintIdBarang')->references('id_barang')->on('barang')->onDelete('cascade')->onUpdate('cascade');

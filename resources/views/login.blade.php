@@ -60,12 +60,13 @@
 <footer>
     <script type="module">
         $('.btn-login').on('click', function(a) {
-            axios.post('login/check', {
+            axios.post('{{url("login/check")}}', {
                 username: $('#userName').val(),
                 password: $('#passWord').val(),
                 _token: '{{csrf_token()}}'
             }).then(function(response) {
-                if (response.data.status == 'success') {
+                console.log(response)
+                if (response.data.status === 'success') {
                     window.location.href = response.data.redirect_url
                 } else {
                     Swal.fire('login gagal, Username atau password salah', '', 'error')

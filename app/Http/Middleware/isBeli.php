@@ -15,6 +15,10 @@ class isBeli
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::check() && Auth::user()->level === 'beli'){
+            return $next($request);
+        } else{
+            return redirect()->to('login',302);
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class CheckLevel
             if (in_array(Auth::user()->level, $roles)) {
                 return $next($request);
             } else {
-                return redirect()->to('login', 302);
+                return redirect()->to('/login', 302);
             }
         }
     }

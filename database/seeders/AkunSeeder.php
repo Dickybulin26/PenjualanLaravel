@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-// use 'Illuminate' => 'admin'\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AkunModel;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,5 +36,8 @@ class AkunSeeder extends Seeder
                 'level' => 'beli'
             ]
         ];
+        foreach ($akuns as $akun) {
+            AkunModel::create($akun);
+        }
     }
 }

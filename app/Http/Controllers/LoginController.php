@@ -30,7 +30,7 @@ class LoginController extends Controller
             if (Auth::user()->level == 'admin') {
                 return response([
                     'status' => 'success',
-                    'redirect_url' => '/admin'
+                    'redirect_url' => '/barang'
                 ], 200);
             } elseif (Auth::user()->level == 'barang') {
                 return response([
@@ -53,12 +53,12 @@ class LoginController extends Controller
                 ], 401);
             }
         } else {
-            
+            return redirect()->to('login', 302);
         }
     }
-    public function logout(Request $request)
+    public function logout()
     {
-        Auth::user()->logout();
-        return redirect()->to('login', 302);
+        Auth::logout();
+        return redirect()->to('/login', 302);
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create($this->table, function (Blueprint $table) {
             $table->integer('id_stok',true,false)->nullable(false);
             $table->integer('id_barang',false,false)->nullable(false)->index('idBarangStok');
-            $table->integer('stok',false,false)->nullable(false)->default(0);
+            $table->integer('jumlah',false,false)->nullable(false)->default(0);
 
             //* foreign key
             $table->foreign('id_barang')->references('id_barang')->on('barang')->onDelete('cascade')->onUpdate('cascade');

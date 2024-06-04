@@ -101,8 +101,8 @@
             },
             
             {
-                data: 'harga_barang',
-                name: 'harga_barang',
+                data: 'harga',
+                name: 'harga',
             },
 
             {
@@ -216,7 +216,7 @@
             // alert(link)
             $('.modal-header .modal-title').html('Beli Barang')
             axios.get(link).then(response =>{
-                $('.modal .modal-body').html(response.data)
+                $('#modalForm .modal-body').html(response.data)
                 $('.autoDropDownBarang').select2({
                     placeholder     : 'Pilih barang yang ingin dibeli',
                     theme           : 'bootstrap-5',
@@ -225,7 +225,7 @@
                     ajax            : {
                         url : "{!! route('barang.list') !!}",
                         dataType : 'json',
-                        processResaults : function(data){
+                        processResults : function(data){
                             $.each(data,function(i,d){
                                 // i = iterasi ke n
                                 // d = data dari iterasi i
@@ -250,7 +250,7 @@
                     'tanggal_beli' : $('#tanggalBeli').val(),
                     'jumlah_beli' : $('#jumlahBeli').val(),
                     'harga' : $('#hargaBeliSatuan').val(),
-                    'token' : '{{csrf_token()}}'
+                    '_token' : '{{csrf_token()}}'
                 }
                 if(
                     data.id_barang !== '' &&

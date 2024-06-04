@@ -14,7 +14,7 @@ class BeliModel extends Model
 
     protected $table = 'beli';
     protected $primaryKey = 'id_beli';
-    protected $fillable = ['id_barang','jumlah_beli','tanggal','harga_barang','total'];
+    protected $fillable = ['id_barang','jumlah_beli','tanggal','harga','total'];
 
     public function barang():BelongsTo
     {

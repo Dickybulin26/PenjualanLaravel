@@ -87,7 +87,7 @@
             {
                 name: 'stok',
                 render: function(data,type,row){
-                    return row.stok.jumlah_barang;
+                    return row.stok.jumlah;
                 }
             },
 
@@ -209,7 +209,7 @@
                     'nama_barang' : $('#namaBarang').val(),
                     'kode_barang' : $('#kodeBarang').val(),
                     'harga_barang' : $('#hargaBarang').val(),
-                    'token' : '{{csrf_token()}}'
+                    '_token' : '{{csrf_token()}}'
                 }
                 if(data.nama_barang !== '' && data.kode_barang !== '' && data.harga_barang !== ''){
                     //* input data
@@ -217,7 +217,7 @@
                     axios.post('{{url("barang/simpan")}}',data).then(response =>{
                         if(response.data.status == 'success'){
                             Swal.fire({
-                                'title' : 'Berhasilh!',
+                                'title' : 'Berhasil!',
                                 'text' : response.data.pesan,
                                 'icon' : 'success'
                             }).then(() => {

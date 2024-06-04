@@ -33,12 +33,11 @@ class BeliController extends Controller
         return view('beli.tambah');
     }
     /**
-     * 
      ** fungsi untuk menyimpan data beli
      */
     public function simpanBeli(StoredRequestBeli $request){
         
-        $data = $request->validated(); 
+        $data = $request->validated();
         $data['total'] = $request->harga * $request->jumlah_beli;
         $insert = BeliModel::create($data);
         
